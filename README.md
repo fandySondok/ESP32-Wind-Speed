@@ -17,11 +17,14 @@ Proyek ini dibuat untuk memantau kecepetan udara dalam dan luar ruangan mengguna
 
 ## Prerequisites
 - Internet Connection
-- Installed PlattformIO in VSCode [here](https://platformio.org/install/ide?install=vscode).
-- for http GET Method, I
+- Add [PlattformIO](https://platformio.org/install/ide?install=vscode) extension on VSCode.
+- For http GET Method, create a channel in [thingspeak](https://www.mathworks.com/help/thingspeak/collect-data-in-a-new-channel.html) first.
+- For MQTT Protocol, create a [mqtt broker](https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/) and topic first.
 
 ## Schematic
 
 ## Library
-## Version
+- [ESP SoftwareSerial.h](https://www.arduino.cc/reference/en/libraries/espsoftwareserial/).
 
+## Version
+Version 0.51.0
