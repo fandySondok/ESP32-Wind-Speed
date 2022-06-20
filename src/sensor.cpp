@@ -6,7 +6,7 @@ SoftwareSerial mod(rx, tx); // RX=26 , TX =27
 
 byte BufferValue[8];
 
-static int hx2Int(int hexa)
+static int hex_to_int(int hexa)
 {
   String hxstr = String(hexa, DEC);
   int nUm = hxstr.toInt();
@@ -29,8 +29,8 @@ float get_wind_data()
     }
     if (BufferValue[1] != 255 && BufferValue[2] != 255)
     {
-      byte1 = hx2Int(BufferValue[3]);
-      byte2 = hx2Int(BufferValue[4]);
+      byte1 = hex_to_int(BufferValue[3]);
+      byte2 = hex_to_int(BufferValue[4]);
       windspeed = ((float(byte1) * 256) + float(byte2)) / 10;
       return windspeed;
     }

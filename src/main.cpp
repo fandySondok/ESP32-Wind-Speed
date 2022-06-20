@@ -1,15 +1,29 @@
 #include <Arduino.h>
 #include "config.h"
 #include "sensor.h"
+#include "iot_connection.h"
+
+unsigned long previous_millis = 0;
+int interval = 1; // (minute)
+long _interval = 60 * 1000 * interval;
 
 void setup()
 {
   Serial.begin(115200);
-  void sensor_setup();
+  sensor_setup();
+  wifi_setup();
 }
 
 void loop()
 {
-  get_wind_data();
-  delay(1000);
+  if ((unsigned long)(millis() - previous_millis) >= _interval)
+  {
+    previous_millis = millis();
+    if (wifi_status())
+    {
+      wifi_setup();
+    }
+    float wind_data = average_wind();
+    send_data(String(wind_data));
+  }
 }
