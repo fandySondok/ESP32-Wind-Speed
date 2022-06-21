@@ -1,6 +1,4 @@
-#include <Arduino.h>
 #include "sensor.h"
-#include "config.h"
 #include <SoftwareSerial.h>
 SoftwareSerial mod(rx, tx); // RX=26 , TX =27
 

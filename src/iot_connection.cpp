@@ -1,9 +1,19 @@
 #include <WiFi.h>
-#include "config.h"
+#include "iot_connection.h"
 #include <ESP32Ping.h>
-#include <HTTPClient.h>
 
+#ifdef http_get
+#include <HTTPClient.h>
 static HTTPClient http;
+#elif defined(mqtt)
+#include <PubSubClient.h>
+WiFiClient espClient;
+PubSubClient client(espClient);
+static void callback(char *topic, byte *message, unsigned int length);
+static void reconnect();
+static void mqtt_setup();
+#endif
+
 bool test_connection()
 {
   bool resp = Ping.ping("www.google.com", 3);
@@ -73,6 +83,73 @@ int send_data(String data)
   }
   http.end();
   return _resp;
-#else
+#elif defined(mqtt)
+  if (!client.connected())
+  {
+    reconnect();
+  }
+  client.publish(pub_topic, data.c_str());
+  return 1;
+#endif
+}
+
+#ifdef mqtt
+
+static void callback(char *topic, byte *message, unsigned int length)
+{
+  Serial.print("Message arrived on topic: ");
+  Serial.print(topic);
+  Serial.print(". Message: ");
+  String messageTemp;
+
+  for (int i = 0; i < length; i++)
+  {
+    Serial.print((char)message[i]);
+    messageTemp += (char)message[i];
+  }
+  Serial.println();
+}
+
+static void reconnect()
+{
+  // Loop until we're reconnected
+  while (!client.connected())
+  {
+    Serial.print("Attempting MQTT connection...");
+    // Attempt to connect
+    if (client.connect("ESP32Client"))
+    {
+      Serial.println("connected");
+      // Subscribe
+      // client.subscribe("esp32/sub");
+    }
+    else
+    {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
+}
+
+static void mqtt_setup()
+{
+  client.setServer(mqtt_server_addr, mqtt_port);
+  client.setCallback(callback);
+}
+
+void client_loop()
+{
+  client.loop();
+}
+#endif
+
+void connection_setup()
+{
+  wifi_setup();
+#ifdef mqtt
+  mqtt_setup();
 #endif
 }

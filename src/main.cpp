@@ -4,14 +4,13 @@
 #include "iot_connection.h"
 
 unsigned long previous_millis = 0;
-int interval = 1; // (minute)
 long _interval = 60 * 1000 * interval;
 
 void setup()
 {
   Serial.begin(115200);
   sensor_setup();
-  wifi_setup();
+  connection_setup();
 }
 
 void loop()
@@ -26,4 +25,5 @@ void loop()
     float wind_data = average_wind();
     send_data(String(wind_data));
   }
+  // client_loop();
 }
