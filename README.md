@@ -14,7 +14,7 @@ This project was created to monitor indoor and outdoor wind speed using the VMS-
 ## Component
 
 - ESP32 development board (DOIT ESP32 DEVKIT V1)
-- Sensor Kecepatan Angin (VMS-3000-FSJT-NPN)
+- Wind Speed Sensor (VMS-3000-FSJT-NPN)
 - rs485 to TTL
 - Jumper
 - breadboard
@@ -34,7 +34,7 @@ This project was created to monitor indoor and outdoor wind speed using the VMS-
 
 ## Library
 
-- [ESP SoftwareSerial.h](https://www.arduino.cc/reference/en/libraries/espsoftwareserial/)
+- [ESP SoftwareSerial](https://www.arduino.cc/reference/en/libraries/espsoftwareserial/)
 
 ## Datasheet
 
