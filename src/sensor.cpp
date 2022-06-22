@@ -4,6 +4,7 @@ SoftwareSerial mod(rx, tx); // RX=26 , TX =27
 
 byte BufferValue[8];
 
+/** Convert hex data to integer data */
 static int hex_to_int(int hexa)
 {
   String hxstr = String(hexa, DEC);
@@ -11,6 +12,7 @@ static int hex_to_int(int hexa)
   return nUm;
 }
 
+/** Get wind speed data from sensor */
 float get_wind_data()
 {
   int byte1, byte2;
@@ -37,12 +39,14 @@ float get_wind_data()
   return 0;
 }
 
+/** Setup serial connection between esp32 and rs-485 to ttl module */
 void sensor_setup()
 {
   mod.begin(baudWindSensor);
   pinMode(transmissionPin, OUTPUT);
 }
 
+/** calculate average of wind speed data */
 float average_wind()
 {
   float sum_wind_data = 0;

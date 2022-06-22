@@ -7,8 +7,8 @@ bool wifi_status();
 void wifi_setup();
 int send_data(String data);
 void connection_setup();
-// #ifdef mqtt
-// void client_loop();
-// #endif
+#ifdef mqtt
+void client_loop();
+#endif
 
 #endif

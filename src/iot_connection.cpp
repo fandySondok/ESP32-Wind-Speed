@@ -14,6 +14,7 @@ static void reconnect();
 static void mqtt_setup();
 #endif
 
+/** Testing internet access from access point */
 bool test_connection()
 {
   bool resp = Ping.ping("www.google.com", 3);
@@ -25,6 +26,7 @@ bool test_connection()
   return resp;
 }
 
+/** return status connection between esp32 and access point */
 bool wifi_status()
 {
   if (WiFi.status() != WL_CONNECTED)
@@ -34,6 +36,7 @@ bool wifi_status()
   return 0;
 }
 
+/** Connect to access point */
 void wifi_setup()
 {
   Serial.println("Setup Wifi");
@@ -54,6 +57,7 @@ void wifi_setup()
   }
 }
 
+/** Send data to server */
 int send_data(String data)
 {
 #ifdef http_get
@@ -95,6 +99,7 @@ int send_data(String data)
 
 #ifdef mqtt
 
+/** Callback when received data from sub topic */
 static void callback(char *topic, byte *message, unsigned int length)
 {
   Serial.print("Message arrived on topic: ");
@@ -110,6 +115,7 @@ static void callback(char *topic, byte *message, unsigned int length)
   Serial.println();
 }
 
+/** Attempt to reconnect */
 static void reconnect()
 {
   // Loop until we're reconnected
@@ -134,18 +140,21 @@ static void reconnect()
   }
 }
 
+/** Prepare ESP32 to use mqtt protocol */
 static void mqtt_setup()
 {
   client.setServer(mqtt_server_addr, mqtt_port);
   client.setCallback(callback);
 }
 
+/** Make sure client get data from sub topic in real-time */
 void client_loop()
 {
   client.loop();
 }
 #endif
 
+/** Setup ESP32 to send data */
 void connection_setup()
 {
   wifi_setup();

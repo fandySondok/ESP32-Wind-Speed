@@ -25,5 +25,7 @@ void loop()
     float wind_data = average_wind();
     send_data(String(wind_data));
   }
-  // client_loop();
+#ifdef mqtt
+  client_loop();
+#endif
 }

@@ -42,4 +42,4 @@ This project was created to monitor indoor and outdoor wind speed using the VMS-
 
 ## Version
 
-Version 0.91.0
+Version 1.0.1
